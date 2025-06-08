@@ -55,21 +55,11 @@ RUN $INST_SCRIPTS/no_vnc.sh
 RUN $INST_SCRIPTS/xfce_ui.sh
 ADD ./src/common/xfce/ $HOME/
 
-RUN cat *$(ls -v  $INST_SCRIPTS/MVS-3.0.1_x86_64_20241128.tar.00*) > $INST_SCRIPTS/MVS-3.0.1_x86_64_20241128.tar
-RUN tar -xf $INST_SCRIPTS/MVS-3.0.1_x86_64_20241128.tar
-RUN dpkg -i $INST_SCRIPTS/MVS-3.0.1_x86_64_20241128.deb
-
-## Create HIKROBOT-MVS.desktop
-RUN echo "[Desktop Entry]" > $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Version=1.0" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Type=Application" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Name=HIKROBOT-MVS" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Comment=" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Exec=/opt/MVS/bin/MVS.sh" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Icon=camera-photo" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Path=/opt/MVS/" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "Terminal=false" >> $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN echo "StartupNotify=false" >> $HOME/Desktop/HIKROBOT-MVS.desktop
+WORKDIR $INST_SCRIPTS
+RUN cat *$(ls -v  MVS-3.0.1_x86_64_20241128.tar.00*) > MVS-3.0.1_x86_64_20241128.tar
+RUN tar -xf MVS-3.0.1_x86_64_20241128.tar
+RUN dpkg -i MVS-3.0.1_x86_64_20241128.deb
+WORKDIR $HOME
 
 RUN chown 1000 $HOME/Desktop/HIKROBOT-MVS.desktop
 RUN chmod 777 $HOME/Desktop/HIKROBOT-MVS.desktop
