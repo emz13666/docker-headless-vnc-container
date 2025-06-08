@@ -6,41 +6,6 @@ docker run -d --restart=always --network=host --name=emz-mvs emz13/debian-xfcs-v
 
 git clone https://github.com/emz13666/docker-headless-vnc-container
 
-создаем ярлык для MVS:
-echo "[Desktop Entry]" > ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Version=1.0" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Type=Application" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Name=HIKROBOT-MVS" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Comment=" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Exec=/opt/MVS/bin/MVS.sh" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Icon=camera-photo" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Path=/opt/MVS/" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "Terminal=false" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-echo "StartupNotify=false" >> ~/docker-headless-vnc-container/src/common/xfce/Desktop/HIKROBOT-MVS.desktop
-
-cp ~/MVS-3.0.1_x86_64_20241128.deb ~/docker-headless-vnc-container/src/debian/install/
-rm ~/docker-headless-vnc-container/src/common/xfce/Desktop/chromium-browser.desktop
-rm ~/docker-headless-vnc-container/src/common/xfce/Desktop/firefox.desktop
-cd ~/docker-headless-vnc-container/
-cp Dockerfile.debian-xfce-vnc Dockerfile
-nano Dockerfile
-меняем пароль в переменной VNC_PW=
-Вставляем строку после установки UI, установку браузеров комментируем:
-RUN dpkg -i $INST_SCRIPTS/MVS-3.0.1_x86_64_20241128.deb
-или вот эти 2 для не-debian:
-RUN tar -xzvf $INST_SCRIPTS/MVS-3.0.1_x86_64_20241128.tar.gz
-RUN $INST_SCRIPTS/MVS-3.0.1_x86_64_20241128/setup.sh
-
-
-Вставляем строчки в конец группы Install xfce UI
-RUN chown 1000 $HOME/Desktop/HIKROBOT-MVS.desktop
-RUN chmod 777 $HOME/Desktop/HIKROBOT-MVS.desktop
-
-Вставляем перед USER 1000:
-###Cleaning $INST_SCRIPTS
-RUN rm -rf $INST_SCRIPTS
-
-Сохраняем файл, выходим.
 Создаем образ:
 sudo docker build -t emz-mvs-debian-xfce .
 При возникновении ошибки типа E: Release file for ... is not valid yet ... выставляем часы и пробуем создавать ещё раз:
