@@ -4,7 +4,7 @@ This repository contains a collection of Docker images with headless VNC environ
 
 Each Docker image is installed with the following components:
 
-* Desktop environment [**Xfce4**](http://www.xfce.org) or [**IceWM**](http://www.icewm.org/)
+* Desktop environment [**Xfce4**](http://www.xfce.org) 
 * VNC-Server (default VNC port `5901`)
 * [**noVNC**](https://github.com/novnc/noVNC) - HTML5 VNC client (default http port `6901`)
 * Browsers:
@@ -17,10 +17,7 @@ Each Docker image is installed with the following components:
 [![Build Status MASTER](https://github.com/ConSol/docker-headless-vnc-container/actions/workflows/nightly.yml/badge.svg)](https://github.com/ConSol/docker-headless-vnc-container/actions/workflows/nightly.yml)
 
 ## Current provided OS & UI sessions:
-* `consol/rocky-xfce-vnc`: __Rocky 9 with `Xfce4` UI session__
 * `consol/debian-xfce-vnc`: __Debian 11 with `Xfce4` UI session__
-* `consol/rocky-icewm-vnc`: __Rocky 9 with `IceWM` UI session__
-* `consol/debian-icewm-vnc`: __Debian 11 with `IceWM` UI session__
 
 ## OpenShift / Kubernetes
 
@@ -34,23 +31,23 @@ Usage is **similar** for all provided images, e.g. for `consol/rocky-xfce-vnc`:
 
 - Print out help page:
 
-      docker run consol/rocky-xfce-vnc --help
+      docker run emz13/debian-xfcs-vnc-mvs --help
 
 - Run command with mapping to local port `5901` (vnc protocol) and `6901` (vnc web access):
 
-      docker run -d -p 5901:5901 -p 6901:6901 consol/rocky-xfce-vnc
+      docker run -d -p 5901:5901 -p 6901:6901 emz13/debian-xfcs-vnc-mvs
 
 - Change the default user and group within a container to your own with adding `--user $(id -u):$(id -g)`:
 
-      docker run -d -p 5901:5901 -p 6901:6901 --user $(id -u):$(id -g) consol/rocky-xfce-vnc
+      docker run -d -p 5901:5901 -p 6901:6901 --user $(id -u):$(id -g) emz13/debian-xfcs-vnc-mvs
 
 - If you want to get into the container use interactive mode `-it` and `bash`
 
-      docker run -it -p 5901:5901 -p 6901:6901 consol/rocky-xfce-vnc bash
+      docker run -it -p 5901:5901 -p 6901:6901 emz13/debian-xfcs-vnc-mvs bash
 
 - Build an image from scratch:
 
-      docker build -t consol/rocky-xfce-vnc rocky-xfce-vnc
+      docker build -t image-name .
 
 # Connect & Control
 If the container is started like mentioned above, connect via one of these options:
@@ -106,25 +103,24 @@ The following VNC environment variables can be overwritten at the `docker run` p
 Simply overwrite the value of the environment variable `VNC_PW`. For example in
 the docker run command:
 
-    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_PW=my-pw consol/rocky-xfce-vnc
+    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_PW=my-pw image-name
 
 #### 3.2) Example: Override the VNC resolution
 Simply overwrite the value of the environment variable `VNC_RESOLUTION`. For example in
 the docker run command:
 
-    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 consol/rocky-xfce-vnc
+    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_RESOLUTION=800x600 image-name
 
 #### 3.3) Example: Start passwordless
 Set `VNC_PASSWORDLESS` to `true` to disable the VNC password.
 It is highly recommended that you put some kind of authorization mechanism
 before this. For example in the docker run command:
 
-    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_PASSWORDLESS=true consol/rocky-xfce-vnc
-
+    docker run -it -p 5901:5901 -p 6901:6901 -e VNC_PASSWORDLESS=true image-name
 ### 4) View only VNC
 Since version `1.2.0` it's possible to prevent unwanted control via VNC. Therefore you can set the environment variable `VNC_VIEW_ONLY=true`. If set, the startup script will create a random password for the control connection and use the value of `VNC_PW` for view only connection over the VNC connection.
 
-     docker run -it -p 5901:5901 -p 6901:6901 -e VNC_VIEW_ONLY=true consol/rocky-xfce-vnc
+     docker run -it -p 5901:5901 -p 6901:6901 -e VNC_VIEW_ONLY=true image-name
 
 ### 5) Known Issues
 
