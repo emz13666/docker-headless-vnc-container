@@ -3,4 +3,8 @@ Version=1.0
 Type=Application
 Name=HIKROBOT-MVS
 Comment=
-
+Exec=/opt/MVS/bin/MVS.sh
+Icon=camera-photo
+Path=/opt/MVS/
+Terminal=false
+StartupNotify=false
