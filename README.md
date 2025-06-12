@@ -1,6 +1,6 @@
 При наличии интернета образ можно загрузить и запустить из репозитария докера:
 
-docker run -d --restart=always --network=host --name=emz-mvs emz13/debian-xfce-vnc-mvs
+docker run -d --restart=always --network=host -e VNC_PW=vncpassword --name=emz-mvs emz13/debian-xfce-vnc-mvs
 
 #Сборка:
 
@@ -132,7 +132,7 @@ Add the `--user` flag to your docker run command:
 The following VNC environment variables can be overwritten at the `docker run` phase to customize your desktop environment inside the container:
 * `VNC_COL_DEPTH`, default: `24`
 * `VNC_RESOLUTION`, default: `1280x1024`
-* `VNC_PW`, default: `my-pw`
+* `VNC_PW`, default: `123Qawe+`
 * `VNC_PASSWORDLESS`, default: `<not set>`
 
 #### 3.1) Example: Override the VNC password
