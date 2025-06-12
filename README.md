@@ -1,3 +1,5 @@
+Это образ docker на основе debian с доступом по vnc и novnc, с установленной xfce и ПО для настройки и управления камерой HIKROBOT Machine Vision Software MVS 3.0.1（Linux）https://www.hikrobotics.com/ 
+
 При наличии интернета образ можно загрузить и запустить из репозитария докера:
 
 docker run -d --restart=always --network=host -e VNC_PW=vncpassword --name=emz-mvs emz13/debian-xfce-vnc-mvs
