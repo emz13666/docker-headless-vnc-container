@@ -1,6 +1,6 @@
-при наличии интернета образ можно загрузить и запустить из репозитария докера:
+При наличии интернета образ можно загрузить и запустить из репозитария докера:
 
-docker run -d --restart=always --network=host --name=emz-mvs emz13/debian-xfcs-vnc-mvs
+docker run -d --restart=always --network=host --name=emz-mvs emz13/debian-xfce-vnc-mvs
 
 #Сборка:
 
